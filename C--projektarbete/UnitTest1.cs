@@ -6,7 +6,7 @@ namespace C__projektarbete
     public class UnitTest1
     {
         [Fact]
-        public void Test_Shenol()
+        public void Test()
         {
 
         }
