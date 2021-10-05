@@ -7,10 +7,10 @@ using Xunit;
 
 namespace Test
 {
-    public class Test
+    public class Lönekontor
     {
         [Fact]
-        public void Test1()
+        public void FunkarDet()
         {
 
         }
