@@ -4,15 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using static Manager.BankKonto;
 
 namespace Test
 {
     public class Lönekontor
     {
         [Fact]
-        public void FunkarDet()
+        public void SättaPengar()
         {
+            var konto = new SalleryAccount(10000);
+
+            var WithrawMoney = konto.AcceptWithrawMoney(5000);
+            Assert.False(WithrawMoney);
 
         }
+
     }
 }
