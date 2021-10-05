@@ -5,12 +5,12 @@
 Detta är det första projektet där ni kodar tillsammans, så fokus kommer att ligga på fungerande sammarbete och att använda branching, PR och Kanban brädet inne på GitHub.
 Ni kommer att jobba enligt TDD utefter ett scenario men ni måste inte bli klara med uppgiften. I framtida kurser när ni kan arbetsflödet så kommer det att bli mer fokus på färdiga produkter
 
-## G krav (grupparbete)
+### G krav (grupparbete)
 
 - ca 10 eller fler commits per person
 - Koda enligt TDD (Red/Green/Refactor samt Spike)
 
-## G krav (individuel rapport)
+### G krav (individuel rapport)
 
 - Skriv ner rapporten i en markdownfil [ditt namn].md i projektet
 - Använd rubriker, underrubriker och styckesindelning
@@ -19,11 +19,11 @@ Ni kommer att jobba enligt TDD utefter ett scenario men ni måste inte bli klara
 - Hur gick implementeringen? Motivera lösningar/beslut. Vad kan göras bättre?
 - Vad blev du mest nöjd med och varför?
 
-## Inlämning (per person)
+#### Inlämning (per person)
 - Lämna in en zip av projektet till "Projektuppgift" inne på PingPong och länka till repon
 - Lämna in en zip av projektet till "Projektrapport" inne på PingPong och länka till rapporten inne i repon
 
-### Deadlines
+##### Deadlines
 
 Deadline #1 - 15/10
 Deadline #2 - 29/10
@@ -33,10 +33,10 @@ Deadline #2 - 29/10
 En nytt bankföretag, iBank, som bara finns online ska starta upp och de behöver utveckla en backend som sköter kontohanteringen på ett säkert sätt.
 Det finns olika sorts bankkonto
 
-1 Sparkonto som tillåter max 5 uttag om året (fler kan göras men då kostar det 1% av uttaget)
-2 Lönekonto som tillåter obegränsat antal uttag
-3 Kreditkonto som tillåter kredit över en viss gräns
-4 Investeringskonto som tillåter ett uttag om året
+- Sparkonto som tillåter max 5 uttag om året (fler kan göras men då kostar det 1% av uttaget)
+- Lönekonto som tillåter obegränsat antal uttag
+- Kreditkonto som tillåter kredit över en viss gräns
+- Investeringskonto som tillåter ett uttag om året
 
 ### Vilka regler gäller för bankkonton rent allmänt?
 
