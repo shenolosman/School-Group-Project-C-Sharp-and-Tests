@@ -8,25 +8,35 @@ namespace Manager
 {
     public class KreditKonto : BankKonto
     {
-        private int v;
+        private int _credit;
 
         //Kreditkonto som tillåter kredit över en viss gräns
         public KreditKonto(int balance) : base(balance)
         {
         }
 
-        public KreditKonto(int balance, int v) : this(balance)
+        public KreditKonto(int balance, int credit) : this(balance)
         {
-            this.v = v;
+            this._credit = credit;
         }
 
         public override bool CanTakeOutMoney(int amount)
         {
-            bool takeOutMoney = amount <= Balance;
+            bool takeOutMoney = amount <= (Balance + _credit);
 
             if (takeOutMoney)
             {
-                Balance -= amount;
+                if (Balance < amount)
+                {
+                    amount -= Balance;
+                    Balance = 0;
+
+                    _credit -= amount;
+                }
+                else
+                {
+                    Balance -= amount;
+                }
             }
 
             return takeOutMoney;
