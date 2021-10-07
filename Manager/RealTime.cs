@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    public class RealTime: ITime
-
+    public class RealTime : ITime
     {
-    public DateTime Now
-    {
-        get
+        public long GetTime()
         {
-            return DateTime.Now;
+            return DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
         }
-    }
+        
     }
 }

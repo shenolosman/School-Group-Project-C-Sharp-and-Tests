@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    public interface ITime
-    {
-        public long GetTime();
-    }
+   public class Time
+   {
+       public const long YearInMilisec = 31556952000;
+   }
 }
