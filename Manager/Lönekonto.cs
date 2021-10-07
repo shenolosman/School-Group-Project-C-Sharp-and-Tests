@@ -6,25 +6,23 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    class Lönekonto
+   public class Lönekonto : BankKonto
     {
-        private int _balance;
-
-        public Lönekonto(int balance)
+        //Lönekonto som tillåter obegränsat antal uttag
+        public Lönekonto(int balance) : base(balance)
         {
-            _balance = balance;
         }
 
-        public bool CanTakeOutMoney(int amount)
+        public override bool CanTakeOutMoney(int amount)
         {
-            bool TakeOutMoney = amount <= _balance;
+            bool takeOutMoney = amount <= Balance;
 
-            if (TakeOutMoney)
+            if (takeOutMoney)
             {
-                _balance -= amount;
+                Balance -= amount;
             }
 
-            return TakeOutMoney;
+            return takeOutMoney;
         }
     }
 }

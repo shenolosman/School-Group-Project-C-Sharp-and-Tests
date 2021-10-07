@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    public class KreditKonto : BankKonto
+   public class Investeringskonto : BankKonto
     {
-        //Kreditkonto som tillåter kredit över en viss gräns
-        public KreditKonto(int balance) : base(balance)
+        //Investeringskonto som tillåter ett uttag om året
+        public Investeringskonto(int balance) : base(balance)
         {
         }
 

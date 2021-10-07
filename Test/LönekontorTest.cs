@@ -16,8 +16,7 @@ namespace Test
             var konto = new SalleryAccount(10000);
 
             var WithrawMoney = konto.AcceptWithrawMoney(5000);
-            Assert.False(WithrawMoney);
-
+            Assert.True(WithrawMoney);
         }
 
     }
