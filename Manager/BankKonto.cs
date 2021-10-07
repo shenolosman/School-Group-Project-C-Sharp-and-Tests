@@ -6,21 +6,15 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    public class BankKonto
+    public abstract class BankKonto
     {
-        public class SalleryAccount
+        protected int Balance;
+
+        protected BankKonto(int balance)
         {
-            private int _pengar;
-
-            public SalleryAccount(int cash)
-            {
-                this._pengar = cash;
-            }
-
-            public bool AcceptWithrawMoney(int v)
-            {
-                throw new NotImplementedException();
-            }
+            Balance = balance;
         }
+
+       public abstract bool CanTakeOutMoney(int amount);
     }
 }
