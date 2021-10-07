@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Manager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,16 @@ namespace Test
             Assert.False(WithrawMoney);
 
         }
+        [Fact]
+        public void LöneTest()
+        {
+            var konto = new Lönekonto(1000);
 
+            var Withdraw = konto.CanTakeOutMoney(600);
+            Assert.True(Withdraw);
+
+            Withdraw = konto.CanTakeOutMoney(500);
+            Assert.False(Withdraw);
+        }
     }
 }

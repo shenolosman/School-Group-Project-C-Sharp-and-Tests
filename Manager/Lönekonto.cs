@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    class Lönekonto
+    public class Lönekonto
     {
         private int _balance;
 
