@@ -7,10 +7,10 @@ using Xunit;
 
 namespace Test
 {
-    public class Lönekontor
+    public class Kreditkontotest
     {
         [Fact]
-        public void FunkarDet()
+        public void KreditKonto_test()
         {
 
         }
