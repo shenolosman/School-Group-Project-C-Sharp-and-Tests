@@ -24,5 +24,18 @@ namespace Manager
 
             return takeOutMoney;
         }
+        public bool CanPutInMoney(int amount)
+        {
+
+            bool putInMoney = Balance <= amount;
+
+            if (amount > 1500 || amount < 0)
+            {
+                return false;
+            }
+
+            Balance += amount;
+            return putInMoney;
+        }
     }
 }

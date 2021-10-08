@@ -16,5 +16,6 @@ namespace Manager
         }
 
        public abstract bool CanTakeOutMoney(int amount);
+       
     }
 }

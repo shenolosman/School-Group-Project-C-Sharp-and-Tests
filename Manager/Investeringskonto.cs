@@ -15,6 +15,8 @@ namespace Manager
             //itime = tid;
         }
 
+       
+
         public override bool CanTakeOutMoney(int amount)
         {
             bool takeOutMoney = amount <= Balance;

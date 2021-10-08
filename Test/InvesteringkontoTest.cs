@@ -26,11 +26,11 @@ namespace Test
             Assert.True(withdraw);
 
             withdraw = investera.CanTakeOutMoney(200);
-            Assert.True(withdraw);
+            Assert.False(withdraw);
             ttime.time = Time.YearInMilisec + 100;
 
             withdraw = investera.CanTakeOutMoney(200);
-            Assert.False(withdraw);
+            Assert.True(withdraw);
 
         }
 
