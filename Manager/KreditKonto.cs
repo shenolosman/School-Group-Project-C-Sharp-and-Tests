@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    public class KreditKonto : BankKonto
+    public class KreditKonto 
     {
         private int _credit;
+        private int Balance;
 
         //Kreditkonto som tillåter kredit över en viss gräns
-        public KreditKonto(int balance) : base(balance)
+        public KreditKonto(int balance) 
         {
         }
 
@@ -20,7 +21,7 @@ namespace Manager
             this._credit = credit;
         }
 
-        public override bool CanTakeOutMoney(int amount)
+        public  bool CanTakeOutMoney(int amount)
         {
             bool takeOutMoney = amount <= (Balance + _credit);
 

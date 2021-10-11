@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-
+using static Manager.BankKonto;
 
 namespace Test
 {
     public class LönekontorTest
     {
         private MockTime time;
-
+        
         [Fact]
         public void SättaPengar()
         {
@@ -25,7 +25,7 @@ namespace Test
         [Fact]
         public void LöneTest()
         {
-            var konto = new Lönekonto(time = new MockTime());
+            var konto = new Lönekonto(1000);
 
             var insert = konto.CanPutInMoney(500);
 
@@ -39,16 +39,17 @@ namespace Test
             Assert.False(Withdraw);
 
         }
+
         [Fact]
         public void InSättningsTest()
         {
             time = new MockTime();
-            Lönekonto konto = new Lönekonto(time = new MockTime());
+            Lönekonto konto = new Lönekonto(1);
 
-
+            
             Assert.True(konto.CanPutInMoney(10000));
-
-
+            
+            
         }
     }
 }

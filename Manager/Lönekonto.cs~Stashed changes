@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-   public class Lönekonto 
+   public class Lönekonto : BankKonto
     {
-        private int Balance;
+        //Lönekonto som tillåter obegränsat antal uttag
+        public Lönekonto(int balance) : base(balance)
+        {
+        }
+
+       
+       
+
         public ITime time;
         private long depositTime;
         private bool putInMoney;
         private int depositLimit;
 
-        
-        public Lönekonto(ITime time)
-        {
-            this.time = time;
-        }
-
-        public  bool CanTakeOutMoney(int amount)
+        public override bool CanTakeOutMoney(int amount)
         {
             bool takeOutMoney = amount <= Balance;
 

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    public abstract class BankKonto
-    {
-        protected int Balance;
+    //public abstract class BankKonto
+    //{
+    //    protected int Balance;
 
-        protected BankKonto(int balance)
-        {
-            Balance = balance;
-        }
+    //    protected BankKonto(int balance)
+    //    {
+    //        Balance = balance;
+    //    }
 
-       public abstract bool CanTakeOutMoney(int amount);
+    //   public abstract bool CanTakeOutMoney(int amount);
        
-    }
+    //}
 }
