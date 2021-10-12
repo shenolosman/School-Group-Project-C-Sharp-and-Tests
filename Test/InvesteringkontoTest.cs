@@ -20,15 +20,15 @@ namespace Test
         public void Test_InvesteringTid()
         {
             ttime.time = 1;
-            var investera = new Investeringskonto(1000,ttime);
+            var investera = new Investeringskonto(1000);
 
             var withdraw = investera.CanTakeOutMoney(500);
             Assert.True(withdraw);
 
             withdraw = investera.CanTakeOutMoney(200);
             Assert.False(withdraw);
-
             ttime.time = Time.YearInMilisec + 100;
+
             withdraw = investera.CanTakeOutMoney(200);
             Assert.True(withdraw);
 

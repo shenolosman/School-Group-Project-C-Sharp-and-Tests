@@ -8,20 +8,16 @@ namespace Manager
 {
    public class Investeringskonto : BankKonto
    {
-       public ITime _itime;
-
-       private DateTime nu = DateTime.Now;
+       public ITime itime;
         //Investeringskonto som tillåter ett uttag om året
 
         public Investeringskonto(int balance) : base(balance)
         {
-            
+            //itime = tid;
         }
 
-        public Investeringskonto(int balance, ITime time) : base(balance, time)
-        {
-            _itime = time;
-        }
+       
+
         public override bool CanTakeOutMoney(int amount)
         {
             bool takeOutMoney = amount <= Balance;

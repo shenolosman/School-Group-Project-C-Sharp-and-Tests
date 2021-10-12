@@ -25,11 +25,17 @@ namespace Test
         {
             var konto = new Lönekonto(1000);
 
+            var insert = konto.CanPutInMoney(500);
+
             var Withdraw = konto.CanTakeOutMoney(600);
             Assert.True(Withdraw);
 
             Withdraw = konto.CanTakeOutMoney(500);
+            Assert.True(Withdraw);
+
+            Withdraw = konto.CanTakeOutMoney(1000);
             Assert.False(Withdraw);
+
         }
     }
 }
