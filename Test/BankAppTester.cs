@@ -66,14 +66,10 @@ namespace Test
 
         }
         [Fact]
-        public void InSättningsTest()
+        public void Test_DepositMoneyToAccount()
         {
-            Lönekonto konto = new Lönekonto(10000);
-
-
+            var konto = new Lönekonto(ttime = new MockTime());
             Assert.False(konto.CanPutInMoney(16000));
-
-
         }
 
     }
