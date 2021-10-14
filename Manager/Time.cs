@@ -9,5 +9,6 @@ namespace Manager
    public class Time
    {
        public const long YearInMilisec = 31556952000;
-   }
+       public static long DayInMillisec = 86400000;
+    }
 }
