@@ -148,7 +148,6 @@ namespace Test
             Withdraw = konto.Withdraw(1000);
             Assert.Equal(4000, konto.Balance);
 
-
         }
 
     }
