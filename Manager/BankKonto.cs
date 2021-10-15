@@ -6,112 +6,99 @@ using System.Threading.Tasks;
 
 namespace Manager
 {
-    public abstract class BankKonto
+    public abstract class BankAccount
     {
         public int Balance;
-        protected ITime tid;
-        protected long depositTime;
-        protected bool putInMoney;
-        protected int depositLimit;
-        protected int withdrawLimit;
-        protected long withdrawTime;
+        protected ITime Time;
+        protected long DepositTime;
+        protected int DepositLimit;
+        protected int WithdrawLimit;
+        protected long WithdrawTime;
 
-        protected BankKonto(ITime time, int balance)
+        protected BankAccount(int balance)
         {
-            tid = time;
-            depositLimit = 15000;
+            DepositLimit = 15000;
             Balance = balance;
         }
-
-        public BankKonto(ITime time) {
-            tid = time;
+        protected BankAccount(ITime time)
+        {
+            Time = time;
             Balance = 0;
-            depositLimit = 15000;
+            DepositLimit = 15000;
         }
         public bool Deposit(int amount)
         {
             if (amount <= 0)
                 return false;
 
-            if (tid.GetTime() > depositTime + Time.DayInMillisec)
+            if (Time.GetTime() > DepositTime + Manager.Time.DayInMillisec)
             {
-                depositLimit = 15000;
-                depositTime = tid.GetTime();
+                DepositLimit = 15000;
+                DepositTime = Time.GetTime();
             }
-            if (amount > depositLimit)
+            if (amount > DepositLimit)
                 return false;
-
-            depositLimit -= amount;
+            DepositLimit -= amount;
             Balance += amount;
             return true;
         }
         public abstract bool Withdraw(int amount);
     }
-    public class Investeringskonto : BankKonto
+    public class InvestmentAccount : BankAccount
     {
-        public Investeringskonto(ITime time) : base(time)
+        public InvestmentAccount(ITime time) : base(time)
         {
-            withdrawLimit = 1;
+            WithdrawLimit = 1;
         }
-
         public override bool Withdraw(int amount)
         {
             if (amount <= 0 || amount > Balance)
                 return false;
 
-            if (tid.GetTime() > withdrawTime + Time.YearInMilisec)
+            if (Time.GetTime() > WithdrawTime + Manager.Time.YearInMilisec)
             {
-                withdrawLimit = 1;
-                withdrawTime = tid.GetTime();
+                WithdrawLimit = 1;
+                WithdrawTime = Time.GetTime();
             }
-
-            if (withdrawLimit <= 0)
-            {
+            if (WithdrawLimit <= 0)
                 return false;
-            }
-
-            withdrawLimit--;
+            WithdrawLimit--;
             Balance -= amount;
             return true;
         }
-        
     }
-    public class KreditKonto : BankKonto
+    public class CreditAccount : BankAccount
     {
         private int _credit;
-        public KreditKonto(int balance, int credit) : base(null, balance) {
-            this._credit = credit;
+        public CreditAccount(int balance, int credit) : base(balance)
+        {
+            _credit = credit;
         }
         public override bool Withdraw(int amount)
         {
-            bool takeOutMoney = amount <= (Balance + _credit);
-
+            var takeOutMoney = amount <= (Balance + _credit);
             if (takeOutMoney)
             {
                 if (Balance < amount)
                 {
                     amount -= Balance;
                     Balance = 0;
-
                     _credit -= amount;
                 }
                 else
-                {
                     Balance -= amount;
-                }
             }
             return takeOutMoney;
         }
     }
-    public class Lönekonto : BankKonto
+    public class SalaryAccount : BankAccount
     {
-        public Lönekonto(ITime time) : base(time)
+        public SalaryAccount(ITime time) : base(time)
         {
-            depositLimit = 15000;
         }
         public override bool Withdraw(int amount)
         {
-            bool takeOutMoney = amount <= Balance;
+            var takeOutMoney = amount <= Balance;
 
             if (takeOutMoney)
             {
@@ -120,28 +107,24 @@ namespace Manager
             return takeOutMoney;
         }
     }
-    public class Sparkonto : BankKonto
+    public class SaveAccount : BankAccount
     {
-        public Sparkonto(ITime time) : base(time)
+        public SaveAccount(ITime time) : base(time)
         {
-            withdrawLimit = 5;
+            WithdrawLimit = 5;
         }
         public override bool Withdraw(int amount)
         {
             if (amount <= 0 || amount > Balance)
                 return false;
-
-            if (tid.GetTime() > withdrawTime + Time.YearInMilisec)
+            if (Time.GetTime() > WithdrawTime + Manager.Time.YearInMilisec)
             {
-                withdrawLimit = 5;
-                withdrawTime = tid.GetTime();
+                WithdrawLimit = 5;
+                WithdrawTime = Time.GetTime();
             }
-
-            if (withdrawLimit <= 0) {
-                // casting
-                Balance -= (int) Math.Ceiling(((double) amount * 0.01));
-            }
-            withdrawLimit--;
+            if (WithdrawLimit <= 0)
+                Balance -= (int)Math.Ceiling(((double)amount * 0.01));
+            WithdrawLimit--;
             Balance -= amount;
             return true;
         }

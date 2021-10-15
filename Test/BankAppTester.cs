@@ -10,146 +10,132 @@ namespace Test
 {
     public class BankAppTester
     {
-        private MockTime time;
-
+        private MockTime _time;
         public BankAppTester()
         {
-            time = new MockTime();
+            _time = new MockTime();
         }
         [Fact]
-        public void Test_InvesteringTid()
+        public void Test_InvesmentAccountWithrawMoneyOnceAYear()
         {
-            var konto = new Investeringskonto(time = new MockTime());
-            time.time = 1;
-            var insert = konto.Deposit(5000);
-            var withdraw = konto.Withdraw(500);
+            var account = new InvestmentAccount(_time = new MockTime());
+
+            _time.time = 1;
+
+            account.Deposit(5000);
+
+            var withdraw = account.Withdraw(500);
             Assert.True(withdraw);
 
-            withdraw = konto.Withdraw(200);
+            withdraw = account.Withdraw(200);
             Assert.False(withdraw);
-            time.time = Time.YearInMilisec + 100;
 
-            withdraw = konto.Withdraw(200);
+            _time.time = Time.YearInMilisec + 100;
+
+            withdraw = account.Withdraw(200);
             Assert.True(withdraw);
-
         }
         [Fact]
-        public void KreditKonto_test()
+        public void Test_CreditAccountLimit()
         {
-            var konto = new KreditKonto(1000, 1000);
+            var account = new CreditAccount(1000, 1000);
 
-            var Withdraw = konto.Withdraw(1000);
+            var Withdraw = account.Withdraw(1000);
             Assert.True(Withdraw);
 
-            Withdraw = konto.Withdraw(600);
+            Withdraw = account.Withdraw(600);
             Assert.True(Withdraw);
 
-            Withdraw = konto.Withdraw(500);
+            Withdraw = account.Withdraw(500);
             Assert.False(Withdraw);
-
-
         }
-
         [Fact]
-        public void LöneTest()
+        public void Test_SalaryAccountDepositAndWithdraw()
         {
-            var konto = new Lönekonto(time = new MockTime());
+            var account = new SalaryAccount(_time = new MockTime());
 
-            var insert = konto.Deposit(5000);
+            var insert = account.Deposit(5000);
 
-            var Withdraw = konto.Withdraw(600);
+            var Withdraw = account.Withdraw(600);
             Assert.True(Withdraw);
 
-            Withdraw = konto.Withdraw(500);
+            Withdraw = account.Withdraw(500);
             Assert.True(Withdraw);
 
-            Withdraw = konto.Withdraw(4000);
+            Withdraw = account.Withdraw(4000);
             Assert.False(Withdraw);
-
         }
-
         [Fact]
-        public void LönekontoMinus()
+        public void Test_SalaryAccount_MinusValue()
         {
-            var konto = new Lönekonto(time = new MockTime());
-            
-            var insert = konto.Deposit(-5000);
-            Assert.False(insert);
+            var account = new SalaryAccount(_time = new MockTime());
 
-            insert = konto.Deposit(16000);
+            var insert = account.Deposit(-5000);
             Assert.False(insert);
         }
-
         [Fact]
-        public void Lönekontomax15000()
+        public void Test_SalaryAccountMaxValue()
         {
-            var konto = new Lönekonto(time = new MockTime());
+            var account = new SalaryAccount(_time = new MockTime());
 
-            var insert = konto.Deposit(5000);
-            insert = konto.Deposit(5000);
-            insert = konto.Deposit(5000);
+            var insert = account.Deposit(5000);
+            insert = account.Deposit(5000);
+            insert = account.Deposit(5000);
             Assert.True(insert);
 
-            insert = konto.Deposit(5000);
+            insert = account.Deposit(5000);
             Assert.False(insert);
 
         }
         [Fact]
-        public void LönekontoTid()
+        public void Test_SalaryAccountCheckTime()
         {
-            var konto = new Lönekonto(time = new MockTime());
-            time.time = 1;
-            var insert = konto.Deposit(5000);
-            insert = konto.Deposit(5000);
-            insert = konto.Deposit(5000);
-            Assert.True(insert);
-            time.time = Time.DayInMillisec + 2;
+            var account = new SalaryAccount(_time = new MockTime());
+            _time.time = 1;
 
-            insert = konto.Deposit(5000);
+            var insert = account.Deposit(5000);
+            insert = account.Deposit(5000);
+            insert = account.Deposit(5000);
             Assert.True(insert);
 
+            _time.time = Time.DayInMillisec + 2;
+
+            insert = account.Deposit(5000);
+            Assert.True(insert);
         }
-
-
-
         [Fact]
-        public void Sparkonto5Utag()
+        public void Test_SaveAccountRateInAYear()
         {
-            var konto = new Sparkonto(time = new MockTime());
-            var insert = konto.Deposit(10000);
+            var account = new SaveAccount(_time = new MockTime());
+            var insert = account.Deposit(10000);
 
-            var Withdraw = konto.Withdraw(1000);
-             Withdraw = konto.Withdraw(1000);
-             Withdraw = konto.Withdraw(1000);
-             Withdraw = konto.Withdraw(1000);
-             Withdraw = konto.Withdraw(1000);
+            var Withdraw = account.Withdraw(1000);
+            Withdraw = account.Withdraw(1000);
+            Withdraw = account.Withdraw(1000);
+            Withdraw = account.Withdraw(1000);
+            Withdraw = account.Withdraw(1000);
 
             Assert.True(Withdraw);
 
-            Withdraw = konto.Withdraw(1000);
-            Assert.Equal(3990,konto.Balance);
-
+            Withdraw = account.Withdraw(1000);
+            Assert.Equal(3990, account.Balance);
         }
-
         [Fact]
-        public void Sparkonto_5_utag_1_år()
+        public void Test_SaveAccountRateAfterOneYear()
         {
-            var konto = new Sparkonto(time = new MockTime());
-            time.time = 1;
+            var account = new SaveAccount(_time = new MockTime());
+            _time.time = 1;
 
-            var insert = konto.Deposit(10000);
-            var Withdraw = konto.Withdraw(1000);
-            Withdraw = konto.Withdraw(1000);
-            Withdraw = konto.Withdraw(1000);
-            Withdraw = konto.Withdraw(1000);
-            Withdraw = konto.Withdraw(1000);
-            time.time = Time.YearInMilisec + 10;
+            var insert = account.Deposit(10000);
+            var Withdraw = account.Withdraw(1000);
+            Withdraw = account.Withdraw(1000);
+            Withdraw = account.Withdraw(1000);
+            Withdraw = account.Withdraw(1000);
+            Withdraw = account.Withdraw(1000);
+            _time.time = Time.YearInMilisec + 10;
 
-            Withdraw = konto.Withdraw(1000);
-            Assert.Equal(4000, konto.Balance);
-
-
+            Withdraw = account.Withdraw(1000);
+            Assert.Equal(4000, account.Balance);
         }
-
     }
 }
