@@ -44,20 +44,31 @@ namespace Manager
 
         public override bool Withdraw(int amount)
         {
-            bool takeOutMoney = amount <= Balance;
+            if (amount <= 0 || amount > Balance)
+                return false;
 
-            if (takeOutMoney)
+            if (tid.GetTime() > withdrawTime + Time.YearInMilisec)
             {
-                Balance -= amount;
+                withdrawLimit = 1;
+                withdrawTime = tid.GetTime();
             }
-            return takeOutMoney;
+
+            if (withdrawLimit <= 0)
+            {
+                return false;
+            }
+
+            withdrawLimit--;
+            Balance -= amount;
+            return true;
+
         }
         public bool Deposit(int amount)
         {
             if (amount <= 0)
                 return false;
 
-            if (tid.GetTime() > depositTime + Time.DayInMillisec)
+            if (tid.GetTime() > depositTime + Time.YearInMilisec)
             {
                 depositLimit = 15000;
                 depositTime = tid.GetTime();
