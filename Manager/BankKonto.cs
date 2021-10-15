@@ -8,7 +8,7 @@ namespace Manager
 {
     public abstract class BankKonto
     {
-        protected int Balance;
+        public int Balance;
         protected ITime tid;
         protected long depositTime;
         protected bool putInMoney;
@@ -119,6 +119,10 @@ namespace Manager
         //Sparkonto som tillåter max 5 uttag om året (fler kan göras men då kostar det 1% av uttaget)
         private int gånger = 0;
         readonly DateTime resetTime = DateTime.Now - TimeSpan.FromDays(-365);
+        public Sparkonto(ITime time) : base(time)
+        {
+
+        }
 
         public Sparkonto(int balance) : base(balance)
         {
@@ -128,6 +132,7 @@ namespace Manager
                 //dra %1 från kontot
             }
         }
+
 
         public override bool Withdraw(int amount)
         {

@@ -115,7 +115,20 @@ namespace Test
         [Fact]
         public void Sparkonto5Utag()
         {
-            
+            var konto = new Sparkonto(time = new MockTime());
+            insert = konto.Deposit(10000);
+
+            var Withdraw = konto.Withdraw(1000);
+             Withdraw = konto.Withdraw(1000);
+             Withdraw = konto.Withdraw(1000);
+             Withdraw = konto.Withdraw(1000);
+             Withdraw = konto.Withdraw(1000);
+
+            Assert.True(Withdraw);
+
+            Withdraw = konto.Withdraw(1000);
+            Assert.Equal(3990,konto.Balance);
+
         }
 
     }
