@@ -22,14 +22,14 @@ namespace Test
             ttime.time = 1;
             var investera = new Investeringskonto(1000);
 
-            var withdraw = investera.CanTakeOutMoney(500);
+            var withdraw = investera.Withdraw(500);
             Assert.True(withdraw);
 
-            withdraw = investera.CanTakeOutMoney(200);
+            withdraw = investera.Withdraw(200);
             Assert.False(withdraw);
             ttime.time = Time.YearInMilisec + 100;
 
-            withdraw = investera.CanTakeOutMoney(200);
+            withdraw = investera.Withdraw(200);
             Assert.True(withdraw);
 
         }
@@ -38,14 +38,16 @@ namespace Test
         {
             var konto = new KreditKonto(1000, 1000);
 
-            var Withdraw = konto.CanTakeOutMoney(1000);
+            var Withdraw = konto.Withdraw(1000);
             Assert.True(Withdraw);
 
-            Withdraw = konto.CanTakeOutMoney(600);
+            Withdraw = konto.Withdraw(600);
             Assert.True(Withdraw);
 
-            Withdraw = konto.CanTakeOutMoney(500);
+            Withdraw = konto.Withdraw(500);
             Assert.False(Withdraw);
+
+
         }
 
         [Fact]
@@ -53,23 +55,39 @@ namespace Test
         {
             var konto = new Lönekonto(ttime = new MockTime());
 
-            var insert = konto.CanPutInMoney(500);
+            var insert = konto.Deposit(5000);
 
-            var Withdraw = konto.CanTakeOutMoney(600);
+            var Withdraw = konto.Withdraw(600);
             Assert.True(Withdraw);
 
-            Withdraw = konto.CanTakeOutMoney(500);
+            Withdraw = konto.Withdraw(500);
             Assert.True(Withdraw);
 
-            Withdraw = konto.CanTakeOutMoney(1000);
+            Withdraw = konto.Withdraw(4000);
             Assert.False(Withdraw);
 
         }
+
         [Fact]
+        public void LöneMax_Minus()
+        {
+            var konto = new Lönekonto(ttime = new MockTime());
+            var insert = konto.Deposit(5000);
+
+            insert = konto.Deposit(-5000);
+            Assert.False(insert);
+
+            insert = konto.Deposit(16000);
+            Assert.False(insert);
+        }
+      
+           
+            
+            [Fact]
         public void Test_DepositMoneyToAccount()
         {
             var konto = new Lönekonto(ttime = new MockTime());
-            Assert.False(konto.CanPutInMoney(16000));
+            Assert.False(konto.Deposit(16000));
         }
 
     }

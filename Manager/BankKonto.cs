@@ -23,7 +23,7 @@ namespace Manager
         }
         
 
-        public abstract bool CanTakeOutMoney(int amount);
+        public abstract bool Withdraw(int amount);
     }
     public class Investeringskonto : BankKonto
     {
@@ -33,7 +33,7 @@ namespace Manager
         {
             //itime = tid;
         }
-        public override bool CanTakeOutMoney(int amount)
+        public override bool Withdraw(int amount)
         {
             bool takeOutMoney = amount <= Balance;
 
@@ -52,7 +52,7 @@ namespace Manager
         public KreditKonto(int balance, int credit) : this(balance) {
             this._credit = credit;
         }
-        public override bool CanTakeOutMoney(int amount)
+        public override bool Withdraw(int amount)
         {
             bool takeOutMoney = amount <= (Balance + _credit);
 
@@ -80,7 +80,7 @@ namespace Manager
    
         public Lönekonto(int balance) : base(balance) { }
         public Lönekonto(ITime time) : base(time) { }
-        public override bool CanTakeOutMoney(int amount)
+        public override bool Withdraw(int amount)
         {
             bool takeOutMoney = amount <= Balance;
 
@@ -91,7 +91,7 @@ namespace Manager
 
             return takeOutMoney;
         }
-        public bool CanPutInMoney(int amount)
+        public bool Deposit(int amount)
         {
             if (tid.GetTime() > depositTime + Time.DayInMillisec)
             {
@@ -99,7 +99,7 @@ namespace Manager
             }
             bool putInMoney = Balance <= amount;
 
-            if (amount > depositLimit || amount < 0)
+            if (amount < depositLimit || amount < 0) 
             {
                 return false;
             }
@@ -125,7 +125,7 @@ namespace Manager
             }
         }
 
-        public override bool CanTakeOutMoney(int amount)
+        public override bool Withdraw(int amount)
         {
 
             bool takeOutMoney = amount <= Balance;
