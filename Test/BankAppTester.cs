@@ -10,16 +10,16 @@ namespace Test
 {
     public class BankAppTester
     {
-        private MockTime ttime;
+        private MockTime time;
 
         public BankAppTester()
         {
-            ttime = new MockTime();
+            time = new MockTime();
         }
         [Fact]
         public void Test_InvesteringTid()
         {
-            ttime.time = 1;
+            time.time = 1;
             var investera = new Investeringskonto(1000);
 
             var withdraw = investera.Withdraw(500);
@@ -27,7 +27,7 @@ namespace Test
 
             withdraw = investera.Withdraw(200);
             Assert.False(withdraw);
-            ttime.time = Time.YearInMilisec + 100;
+            time.time = Time.YearInMilisec + 100;
 
             withdraw = investera.Withdraw(200);
             Assert.True(withdraw);
@@ -53,7 +53,7 @@ namespace Test
         [Fact]
         public void LöneTest()
         {
-            var konto = new Lönekonto(ttime = new MockTime());
+            var konto = new Lönekonto(time = new MockTime());
 
             var insert = konto.Deposit(5000);
 
@@ -69,25 +69,53 @@ namespace Test
         }
 
         [Fact]
-        public void LöneMax_Minus()
+        public void LönekontoMinus()
         {
-            var konto = new Lönekonto(ttime = new MockTime());
-            var insert = konto.Deposit(5000);
-
-            insert = konto.Deposit(-5000);
+            var konto = new Lönekonto(time = new MockTime());
+            
+            var insert = konto.Deposit(-5000);
             Assert.False(insert);
 
             insert = konto.Deposit(16000);
             Assert.False(insert);
         }
-      
-           
-            
-            [Fact]
-        public void Test_DepositMoneyToAccount()
+
+        [Fact]
+        public void Lönekontomax15000()
         {
-            var konto = new Lönekonto(ttime = new MockTime());
-            Assert.False(konto.Deposit(16000));
+            var konto = new Lönekonto(time = new MockTime());
+
+            var insert = konto.Deposit(5000);
+            insert = konto.Deposit(5000);
+            insert = konto.Deposit(5000);
+            Assert.True(insert);
+
+            insert = konto.Deposit(5000);
+            Assert.False(insert);
+
+        }
+        [Fact]
+        public void LönekontoTid()
+        {
+            var konto = new Lönekonto(time = new MockTime());
+            time.time = 1;
+            var insert = konto.Deposit(5000);
+            insert = konto.Deposit(5000);
+            insert = konto.Deposit(5000);
+            Assert.True(insert);
+            time.time = Time.DayInMillisec + 2;
+
+            insert = konto.Deposit(5000);
+            Assert.True(insert);
+
+        }
+
+
+
+        [Fact]
+        public void Sparkonto5Utag()
+        {
+            
         }
 
     }

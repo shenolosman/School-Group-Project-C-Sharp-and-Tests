@@ -77,9 +77,11 @@ namespace Manager
     public class Lönekonto : BankKonto
     {
         //Lönekonto som tillåter obegränsat antal uttag
-   
-        public Lönekonto(int balance) : base(balance) { }
-        public Lönekonto(ITime time) : base(time) { }
+
+        public Lönekonto(int balance) : base(balance)
+        {
+            depositLimit = 15000; }
+        public Lönekonto(ITime time) : base(time) { depositLimit = 15000; }
         public override bool Withdraw(int amount)
         {
             bool takeOutMoney = amount <= Balance;
@@ -91,24 +93,26 @@ namespace Manager
 
             return takeOutMoney;
         }
+
         public bool Deposit(int amount)
         {
+            if (amount <= 0)
+                return false;
+
             if (tid.GetTime() > depositTime + Time.DayInMillisec)
             {
                 depositLimit = 15000;
+                depositTime = tid.GetTime();
             }
-            bool putInMoney = Balance <= amount;
-
-            if (amount < depositLimit || amount < 0) 
-            {
+            
+            if (amount > depositLimit)
                 return false;
-            }
 
-            depositTime = tid.GetTime();
             depositLimit -= amount;
             Balance += amount;
-            return putInMoney;
+            return true;
         }
+
     }
     public class Sparkonto : BankKonto
     {
