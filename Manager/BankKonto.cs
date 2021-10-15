@@ -13,6 +13,8 @@ namespace Manager
         protected long depositTime;
         protected bool putInMoney;
         protected int depositLimit;
+        protected int withdrawLimit;
+        protected long withdrawTime;
         protected BankKonto(int balance)
         {
             Balance = balance;
@@ -121,30 +123,50 @@ namespace Manager
         readonly DateTime resetTime = DateTime.Now - TimeSpan.FromDays(-365);
         public Sparkonto(ITime time) : base(time)
         {
-
+            withdrawLimit = 5;
+            depositLimit = 15000;
         }
 
-        public Sparkonto(int balance) : base(balance)
+        public bool Deposit(int amount)
         {
-            List<int> sparaGånger = new List<int>();
-            if (gånger > 6 && resetTime == DateTime.Now)
+            if (amount <= 0)
+                return false;
+
+            if (tid.GetTime() > depositTime + Time.DayInMillisec)
             {
-                //dra %1 från kontot
+                depositLimit = 15000;
+                depositTime = tid.GetTime();
             }
+
+            if (amount > depositLimit)
+                return false;
+
+            depositLimit -= amount;
+            Balance += amount;
+            return true;
         }
 
 
         public override bool Withdraw(int amount)
         {
+            if (amount <= 0 || amount > Balance)
+                return false;
 
-            bool takeOutMoney = amount <= Balance;
-
-            if (takeOutMoney)
+            if (tid.GetTime() > withdrawTime + Time.YearInMilisec)
             {
-                Balance -= amount;
+                withdrawLimit = 5;
+                withdrawTime = tid.GetTime();
             }
 
-            return takeOutMoney;
+            if (withdrawLimit <= 0) {
+                // casting
+                Balance -= (int) Math.Ceiling(((double) amount * 0.01));
+            }
+
+            withdrawLimit--;
+            Balance -= amount;
+            return true;
+
         }
     }
 }

@@ -116,7 +116,7 @@ namespace Test
         public void Sparkonto5Utag()
         {
             var konto = new Sparkonto(time = new MockTime());
-            insert = konto.Deposit(10000);
+            var insert = konto.Deposit(10000);
 
             var Withdraw = konto.Withdraw(1000);
              Withdraw = konto.Withdraw(1000);
@@ -128,6 +128,26 @@ namespace Test
 
             Withdraw = konto.Withdraw(1000);
             Assert.Equal(3990,konto.Balance);
+
+        }
+
+        [Fact]
+        public void Sparkonto_5_utag_1_år()
+        {
+            var konto = new Sparkonto(time = new MockTime());
+            time.time = 1;
+
+            var insert = konto.Deposit(10000);
+            var Withdraw = konto.Withdraw(1000);
+            Withdraw = konto.Withdraw(1000);
+            Withdraw = konto.Withdraw(1000);
+            Withdraw = konto.Withdraw(1000);
+            Withdraw = konto.Withdraw(1000);
+            time.time = Time.YearInMilisec + 10;
+
+            Withdraw = konto.Withdraw(1000);
+            Assert.Equal(4000, konto.Balance);
+
 
         }
 
