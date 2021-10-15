@@ -19,17 +19,17 @@ namespace Test
         [Fact]
         public void Test_InvesteringTid()
         {
+            var konto = new Investeringskonto(time = new MockTime());
             time.time = 1;
-            var investera = new Investeringskonto(1000);
-
-            var withdraw = investera.Withdraw(500);
+            var insert = konto.Deposit(5000);
+            var withdraw = konto.Withdraw(500);
             Assert.True(withdraw);
 
-            withdraw = investera.Withdraw(200);
+            withdraw = konto.Withdraw(200);
             Assert.False(withdraw);
             time.time = Time.YearInMilisec + 100;
 
-            withdraw = investera.Withdraw(200);
+            withdraw = konto.Withdraw(200);
             Assert.True(withdraw);
 
         }

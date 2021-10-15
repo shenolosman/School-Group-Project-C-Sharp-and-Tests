@@ -35,6 +35,13 @@ namespace Manager
         {
             //itime = tid;
         }
+
+        public Investeringskonto(ITime time) : base(time)
+        {
+            withdrawLimit = 1;
+            depositLimit = 15000;
+        }
+
         public override bool Withdraw(int amount)
         {
             bool takeOutMoney = amount <= Balance;
@@ -44,6 +51,24 @@ namespace Manager
                 Balance -= amount;
             }
             return takeOutMoney;
+        }
+        public bool Deposit(int amount)
+        {
+            if (amount <= 0)
+                return false;
+
+            if (tid.GetTime() > depositTime + Time.DayInMillisec)
+            {
+                depositLimit = 15000;
+                depositTime = tid.GetTime();
+            }
+
+            if (amount > depositLimit)
+                return false;
+
+            depositLimit -= amount;
+            Balance += amount;
+            return true;
         }
     }
     public class KreditKonto : BankKonto
