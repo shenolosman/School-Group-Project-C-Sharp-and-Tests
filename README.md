@@ -1,11 +1,19 @@
-# Projektarbete
+# School group project
+
+## Trying to build bank/finance aspect with TDD perspective. Used Resharper Xunit for tests.
+
+
+
+
+
+### Projektarbete
 
 Övergripande
 
 Detta är projektet där vi kodar, fokus kommer att ligga på fungerande sammarbete och att använda branching, PR och Kanban brädet inne på GitHub.
 Vi kommer att jobba enligt TDD utefter scenarion.
 
-## Scenario Bankkonton
+### Scenario Bankkonton
 
 En nytt bankföretag, iBank, som bara finns online ska starta upp och de behöver utveckla en backend som sköter kontohanteringen på ett säkert sätt.
 Det finns olika sorts bankkonto
